@@ -62,9 +62,9 @@ public class DynamicLoadContent {
         if (last != null) {
             init.set(last.get() + 1);
         } else {
-            (new URL[1])[0] = new URL("jar:" + f.toURI().toURL().toExternalForm() + "!/");
-
-            MyURLClassLoader ucl = new MyURLClassLoader(new URL[1], findParentClassLoader());
+            URL url = new URL("jar:" + f.toURI().toURL().toExternalForm() + "!/");
+            URL[] urls = {url};
+            MyURLClassLoader ucl = new MyURLClassLoader(urls, findParentClassLoader());
             Class<Driver> clazz = (Class)Class.forName(dataSource.getDrivers(), true, (ClassLoader)ucl);
             Driver d = clazz.newInstance();
             DriverAgent da = new DriverAgent(d);
